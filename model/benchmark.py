@@ -45,7 +45,8 @@ from mealpy.evolutionary_based.DE import L_SHADE as L_SHADE
 from mealpy.swarm_based.WOA import BaseWOA as WOA
 from mealpy.swarm_based.WOA import HI_WOA as HI_WOA
 from mealpy.swarm_based.HGS import OriginalHGS as HGS
-from mealpy.swarm_based.COA import BaseCOA as COA
+# from mealpy.swarm_based.COA import BaseCOA as COA
+from model.COA import BaseCOA as COA
 
 from mealpy.human_based.LCBO import BaseLCBO as LCBO
 from mealpy.human_based.CHIO import BaseCHIO as CHIO
