@@ -23,7 +23,7 @@ VERBOSE = False
 EPOCH = 1000
 POP_SIZE = 50
 LIST_FUNCTIONS = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20"]
-LIST_MHAS = ["GA", "DESAP", "WOA", "HGS", "MLCO", "CHIO"]
+LIST_MHAS = ["GA", "SADE", "SAP_DE", "SHADE", "L_SHADE", "WOA", "HI_WOA", "HGS", "COA", "LCBO", "CHIO", "OTWO", "OBL_HGSO", "SLO", "ISLO"]
 
 
 def run_algorithm(name):
