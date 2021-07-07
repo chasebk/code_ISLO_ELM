@@ -28,7 +28,19 @@ class Config:
                    "fit-min", "fit-max", "fit-cv", "fit-mean", "fit-std"]
 
 
-    DATA_INPUT = f'{DATA_DIRECTORY}/input_data'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/results'
-    RESULTS_FOLDER_VISUALIZE = "visualize"
-    RESULTS_FOLDER_MODEL = "model"
+    DATA_APP = f'{DATA_DIRECTORY}/app/clean'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results'
+    FOL_RES_VISUAL = "visualize"
+    FOL_RES_MODEL = "model"
+
+    METRICS_TEST_PHASE = ["MAE", "RMSE", "R", "R2s", "MAPE", "NSE", "KGE", "PCD", "KLD", "VAF", "A10", "A20"]
+
+
+class Exp:
+    NN_NET = 20     # The number hidden neuron of the network for traditional MLP
+    NN_HYBRID = 6   # For hybrid models
+
+    VERBOSE = 0
+    TRIAL = 5
+    EPOCH = 1000
+
