@@ -147,7 +147,7 @@ class HybridMlp:
             save_results_to_csv(item, f"metrics-{filename}", f"{path_general}/{Config.FOL_RES_MODEL}")
 
             # 5. Saving performance figure
-            list_lines = [test_true[:500], test_pred[:500]]
+            list_lines = [test_true[200:400], test_pred[200:400]]
             list_legends = ["Observed", "Predicted"]
             xy_labels = ["#Iteration", datadict["datatype"]]
             exts = [".png", ".pdf"]

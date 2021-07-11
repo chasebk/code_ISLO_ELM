@@ -21,7 +21,7 @@ def draw_predict(list_lines: list, list_legends: list, xy_labels: list, title: s
     plt.legend(list_legends, loc='upper right')
     plt.title(title)
     for idx, ext in enumerate(exts):
-        plt.savefig(f"{pathsave}/{filename}.{ext}", bbox_inches='tight')
+        plt.savefig(f"{pathsave}/{filename}{ext}", bbox_inches='tight')
     if platform.system() != "Linux" and verbose:
         plt.show()
     plt.close()
