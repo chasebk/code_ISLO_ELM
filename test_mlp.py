@@ -111,45 +111,9 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
         draw_predict(list_lines, list_legends, xy_labels, "", filename, f"{path_general}/{Config.FOL_RES_VISUAL}", exts, verbose)
 
 
-list_dataset = {
-    "cpu": {
-        "datatype": "CPU",
-        "dataname": "gg_cpu_5m",
-        "columns": [0],
-        "lags": 36,
-        "test_percent": 0.2,
-        "batch_size": 128,
-    },
-    "ram": {
-        "datatype": "RAM",
-        "dataname": "gg_ram_5m",
-        "columns": [1],
-        "lags": 36,
-        "test_percent": 0.2,
-        "batch_size": 128,
-    },
-    "it_eu": {
-        "datatype": "Internet Traffic EU (in Megabyte)",
-        "dataname": "it_eu_5m",
-        "columns": [0],
-        "lags": 41,
-        "test_percent": 0.2,
-        "batch_size": 256,
-    },
-    "it_uk": {
-        "datatype": "Internet Traffic UK (in Byte)",
-        "dataname": "it_uk_5m",
-        "columns": [0],
-        "lags": 43,
-        "test_percent": 0.2,
-        "batch_size": 256,
-    }
-}
-
-for dataname, datadict in list_dataset.items():
+for dataname, datadict in Exp.LIST_DATASETS.items():
     # load dataset
     series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
-    dataset = series.values
     # experiment
     results = DataFrame()
     experiment(Exp.TRIAL, datadict, series, Exp.EPOCH, Exp.NN_NET, Exp.VERBOSE)
