@@ -104,7 +104,7 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
         save_results_to_csv(item, f"metrics-{filename}", f"{path_general}/{Config.FOL_RES_MODEL}")
 
         # 5. Saving performance figure
-        list_lines = [test_true[:500], test_pred[:500]]
+        list_lines = [test_true[200:400], test_pred[200:400]]
         list_legends = ["Observed", "Predicted"]
         xy_labels = ["#Iteration", datadict["datatype"]]
         exts = [".png", ".pdf"]
@@ -116,5 +116,5 @@ for dataname, datadict in Exp.LIST_DATASETS.items():
     series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
     # experiment
     results = DataFrame()
-    experiment(Exp.TRIAL, datadict, series, Exp.EPOCH, Exp.NN_NET, Exp.VERBOSE)
+    experiment(Exp.TRIAL, datadict, series, Exp.EPOCH[0], Exp.NN_NET, Exp.VERBOSE)
 
