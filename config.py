@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results1'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
@@ -41,13 +41,13 @@ class Config:
 class Exp:
     NN_NET = 20     # The number hidden neuron of the network for traditional MLP
     NN_HYBRID = 3   # For hybrid models
-    ACT = "relu"    # Activation function for hybrid models
+    ACT = "elu"    # Activation function for hybrid models
 
     VERBOSE = 0
-    TRIAL = 10
+    TRIAL = 1
 
     EPOCH = [1000]
-    POP_SIZE = [50]
+    POP_SIZE = [100]
 
     ## Evolutionary-based group
     ga_paras = {
@@ -127,7 +127,7 @@ class Exp:
     OPTIMIZERS = [
         # {"name": "GA-MLP", "class": "GaMlp", "param_grid": ga_paras},  # Genetic Algorithm
         {"name": "JADE-MLP", "class": "JadeMlp", "param_grid": jade_paras},  # Differential Evolution
-        # {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
         # {"name": "SLO-MLP", "class": "SloMlp", "param_grid": slo_paras},  # Sea Lion Optimization
-        # {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+        {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
     ]
