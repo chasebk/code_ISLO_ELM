@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------------------------------%
-# Created by "Thieu" at 10:16, 06/07/2021                                                               %
+# Created by "Thieu" at 09:27, 13/07/2021                                                               %
 #                                                                                                       %
 #       Email:      nguyenthieu2102@gmail.com                                                           %
 #       Homepage:   https://www.researchgate.net/profile/Nguyen_Thieu2                                  %
@@ -10,8 +10,8 @@
 from time import time
 from pandas import read_csv
 from permetrics.regression import Metrics
-from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Add
+from keras import Input, Model
 
 from utils.io_util import save_to_csv_dict, save_to_csv, save_results_to_csv
 from utils.visual_util import draw_predict
@@ -22,9 +22,12 @@ from config import Config, Exp
 # fit an MLP network to training data
 def fit_model(train, batch_size, nb_epoch, neurons, verbose=2):
     X, y = train[:, 0:-1], train[:, -1]
-    model = Sequential()
-    model.add(Dense(neurons, activation='relu', input_dim=X.shape[1]))
-    model.add(Dense(1))
+    input = Input((X.shape[1],))
+    hidden = Dense(neurons, activation="relu")(input)
+    output1 = Dense(1, activation=None)(hidden)
+    output2 = Dense(1, activation=None)(input)
+    output = Add()([output1, output2])
+    model = Model(input, output)
     model.compile(loss='mean_squared_error', optimizer='adam')
     loss = model.fit(X, y, epochs=nb_epoch, batch_size=batch_size, verbose=verbose, shuffle=False)
     return model, loss
@@ -81,8 +84,8 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
 
         ## Saving results
         # 1. Create path to save results
-        path_general = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{lag}-{datadict['test_percent']}-{trial}"
-        filename = f"MLP-{neurons}-{epochs}-{batch_size}"
+        path_general = f"{Config.DATA_RESULTS}/{dataname}/{lag}-{datadict['test_percent']}-{trial}"
+        filename = f"CFNN-{neurons}-{epochs}-{batch_size}"
 
         # 2. Saving performance of test set
         data = {"true": test_true, "predict": test_pred}
