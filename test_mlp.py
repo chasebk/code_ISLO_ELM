@@ -81,7 +81,7 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
 
         ## Saving results
         # 1. Create path to save results
-        path_general = f"{Config.DATA_RESULTS}/{dataname}/{lag}-{datadict['test_percent']}-{trial}"
+        path_general = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{lag}-{datadict['test_percent']}-{trial}"
         filename = f"MLP-{neurons}-{epochs}-{batch_size}"
 
         # 2. Saving performance of test set
