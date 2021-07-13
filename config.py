@@ -40,13 +40,13 @@ class Config:
 
 class Exp:
     NN_NET = 20     # The number hidden neuron of the network for traditional MLP
-    NN_HYBRID = 3   # For hybrid models
-    ACT = "elu"    # Activation function for hybrid models
+    NN_HYBRID = 2   # For hybrid models
+    ACT = "relu"    # Activation function for hybrid models
 
     VERBOSE = 0
     TRIAL = 1
 
-    EPOCH = [1000]
+    EPOCH = [2000]
     POP_SIZE = [100]
 
     ## Evolutionary-based group
@@ -94,7 +94,7 @@ class Exp:
             "datatype": "CPU",
             "dataname": "gg_cpu_5m",
             "columns": [0],
-            "lags": 36,
+            "lags": 18,
             "test_percent": 0.2,
             "batch_size": 128,
         },
@@ -102,7 +102,7 @@ class Exp:
             "datatype": "RAM",
             "dataname": "gg_ram_5m",
             "columns": [1],
-            "lags": 36,
+            "lags": 18,
             "test_percent": 0.2,
             "batch_size": 128,
         },
