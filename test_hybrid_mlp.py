@@ -30,7 +30,7 @@ def setting_and_running(optimizer):
 if __name__ == '__main__':
     starttime = time()
     processes = []
-    for optimizer in Exp.OPTIMIZERS:
+    for optimizer in Exp.MLP_OPTIMIZERS:
         p = multiprocessing.Process(target=setting_and_running, args=(optimizer,))
         processes.append(p)
         p.start()

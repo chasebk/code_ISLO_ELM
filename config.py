@@ -123,13 +123,25 @@ class Exp:
         # }
     }
 
-    OPTIMIZERS = [
+
+    MLP_OPTIMIZERS = [
         #### MHA-MLP
         # {"name": "GA-MLP", "class": "GaMlp", "param_grid": ga_paras},  # Genetic Algorithm
         # {"name": "JADE-MLP", "class": "JadeMlp", "param_grid": jade_paras},  # Differential Evolution
         # {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
         # {"name": "SLO-MLP", "class": "SloMlp", "param_grid": slo_paras},  # Sea Lion Optimization
         # {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+
+        {"name": "FPA-MLP", "class": "FpaMlp", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "HHO-MLP", "class": "HhoMlp", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "HGS-MLP", "class": "HgsMlp", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "NRO-MLP", "class": "NroMlp", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "TLO-MLP", "class": "TloMlp", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "FBIO-MLP", "class": "FbioMlp", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "SMA-MLP", "class": "SmaMlp", "param_grid": general_paras},  # Improved Sea Lion Optimization
+    ]
+
+    ELM_OPTIMIZERS = [
 
         #### MHA-ELM
         # {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
@@ -145,6 +157,23 @@ class Exp:
         {"name": "TLO-ELM", "class": "TloElm", "param_grid": general_paras},  # Sea Lion Optimization
         {"name": "FBIO-ELM", "class": "FbioElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
         {"name": "SMA-ELM", "class": "SmaElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+    ]
+
+    CFNN_OPTIMIZERS = [
+        #### MHA-MLP
+        # {"name": "GA-CFNN", "class": "GaCfnn", "param_grid": ga_paras},  # Genetic Algorithm
+        # {"name": "JADE-CFNN", "class": "JadeCfnn", "param_grid": jade_paras},  # Differential Evolution
+        # {"name": "CL-PSO-CFNN", "class": "CLPsoCfnn", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        # {"name": "SLO-CFNN", "class": "SloCfnn", "param_grid": slo_paras},  # Sea Lion Optimization
+        # {"name": "ISLO-CFNN", "class": "IsloCfnn", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+
+        {"name": "FPA-CFNN", "class": "FpaCfnn", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "HHO-CFNN", "class": "HhoCfnn", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "HGS-CFNN", "class": "HgsCfnn", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "NRO-CFNN", "class": "NroCfnn", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "TLO-CFNN", "class": "TloCfnn", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "FBIO-CFNN", "class": "FbioCfnn", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "SMA-CFNN", "class": "SmaCfnn", "param_grid": general_paras},  # Improved Sea Lion Optimization
     ]
 
     # Evo --> FPA
