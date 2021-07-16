@@ -9,7 +9,7 @@
 
 from time import time
 from permetrics.regression import Metrics
-from numpy import reshape, add, matmul
+from numpy import reshape, add, matmul, concatenate
 from utils import math_util
 from utils.io_util import save_to_csv_dict, save_to_csv, save_results_to_csv
 from utils.visual_util import draw_predict
@@ -26,39 +26,38 @@ class HybridFlnn:
         self.filename = None
 
     def predict_using_model(self, data, model):
-        hidd = getattr(math_util, self.activation)(add(matmul(data, model["w1"]), model["b1"]))
-        y_pred = add(matmul(hidd, model["w2"]), model["b2"])
-        return y_pred
+        return getattr(math_util, self.activation)(add(matmul(data, model["w"]), model["b"]))
 
     def predict_using_solution(self, data, solution):
         model = self.solution_to_network(solution)
-        hidd = getattr(math_util, self.activation)(add(matmul(data, model["w1"]), model["b1"]))
-        y_pred = add(matmul(hidd, model["w2"]), model["b2"])
-        return y_pred
+        return getattr(math_util, self.activation)(add(matmul(data, model["w"]), model["b"]))
 
     def solution_to_network(self, solution):
-        w1 = reshape(solution[:self.netsize["index_w1"]], (self.netsize["input"], self.netsize["hidden"]))
-        b1 = reshape(solution[self.netsize["index_w1"]:self.netsize["index_b1"]], (-1, self.netsize["hidden"]))
-        w2 = reshape(solution[self.netsize["index_b1"]: self.netsize["index_w2"]], (self.netsize["hidden"], self.netsize["output"]))
-        b2 = reshape(solution[self.netsize["index_w2"]:], (-1, self.netsize["output"]))
-        model = {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
-        self.weights = {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
+        w = reshape(solution[:self.netsize["index_w"]], (self.netsize["input"], self.netsize["output"]))
+        b = reshape(solution[self.netsize["index_w"]:], (-1, self.netsize["output"]))
+        self.weights = {"w": w, "b": b}
+        model = {"w": w, "b": b}
         return model
 
     def objective_function(self, solution):
         self.solution_to_network(solution)
-        hidd = getattr(math_util, self.activation)(add(matmul(self.X_train, self.weights["w1"]), self.weights["b1"]))
-        y_pred = add(matmul(hidd, self.weights["w2"]), self.weights["b2"])
-        temp = mean_squared_error(self.y_train, y_pred)
-        return temp
+        y_pred = getattr(math_util, self.activation)(add(matmul(self.X_train, self.weights["w"]), self.weights["b"]))
+        return mean_squared_error(self.y_train, y_pred)
+
+    def prepare_expansion(self, data, expansion_func):
+        y_column = data[:, -1:]
+        X_columns = data[:, 0:-1]
+        X_expansion = getattr(math_util, f"expand_{expansion_func}")(X_columns)
+        return concatenate((X_expansion, y_column), axis=1)
 
     def fit_model(self):
         pass
 
     # run a repeated experiment
-    def experiment(self, optimizer, trials, datadict, series, epochs, activation, expand_func, verbose):
+    def experiment(self, optimizer, trials, datadict, series, epoch, activation, expand_func, verbose):
         time_prepare = time()
         self.optimizer = optimizer
+        self.epoch = epoch
         self.lag = datadict["lags"]
         self.test_size = int(datadict["test_percent"] * len(series.values))
         self.expand_func = expand_func
@@ -149,6 +148,4 @@ class HybridFlnn:
             xy_labels = ["#Iteration", datadict["datatype"]]
             exts = [".png", ".pdf"]
             draw_predict(list_lines, list_legends, xy_labels, "", filename, f"{path_general}/{Config.FOL_RES_VISUAL}", exts, verbose)
-
-
 

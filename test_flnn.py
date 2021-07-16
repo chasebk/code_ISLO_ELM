@@ -92,7 +92,7 @@ def experiment(trials, datadict, series, epochs, activation, expand_func, verbos
         ## Saving results
         # 1. Create path to save results
         path_general = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{lag}-{datadict['test_percent']}-{trial}"
-        filename = f"MLP-{lag}-{expand_func}-{epochs}-{batch_size}-{activation}"
+        filename = f"FLNN-{lag}-{expand_func}-{epochs}-{batch_size}-{activation}"
 
         # 2. Saving performance of test set
         data = {"true": test_true, "predict": test_pred}
