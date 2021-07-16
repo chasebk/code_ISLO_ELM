@@ -40,11 +40,11 @@ class Config:
 
 class Exp:
     NN_NET = 20     # The number hidden neuron of the network for traditional MLP
-    NN_HYBRID = 1   # For hybrid models
+    NN_HYBRID = 2   # For hybrid models
     ACT = "elu"    # Activation function for hybrid models
 
     VERBOSE = 0
-    TRIAL = 1
+    TRIAL = 2
 
     EPOCH = [2000]
     POP_SIZE = [100]
