@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results1'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results2'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
@@ -40,14 +40,18 @@ class Config:
 
 class Exp:
     NN_NET = 20     # The number hidden neuron of the network for traditional MLP
-    NN_HYBRID = 2   # For hybrid models
-    ACT = "relu"    # Activation function for hybrid models
+    NN_HYBRID = 1   # For hybrid models
+    ACT = "elu"    # Activation function for hybrid models
 
     VERBOSE = 0
     TRIAL = 1
 
     EPOCH = [2000]
     POP_SIZE = [100]
+
+    general_paras = {
+        "epoch": EPOCH, "pop_size": POP_SIZE,
+    }
 
     ## Evolutionary-based group
     ga_paras = {
@@ -84,11 +88,6 @@ class Exp:
         "w_max": [0.9],
     }
 
-    slo_paras = islo_paras = {
-        "epoch": EPOCH, "pop_size": POP_SIZE,
-    }
-
-
     LIST_DATASETS = {
         "cpu": {
             "datatype": "CPU",
@@ -98,36 +97,58 @@ class Exp:
             "test_percent": 0.2,
             "batch_size": 128,
         },
-        "ram": {
-            "datatype": "RAM",
-            "dataname": "gg_ram_5m",
-            "columns": [1],
-            "lags": 18,
-            "test_percent": 0.2,
-            "batch_size": 128,
-        },
-        "it_eu": {
-            "datatype": "Internet Traffic EU (in Megabyte)",
-            "dataname": "it_eu_5m",
-            "columns": [0],
-            "lags": 41,
-            "test_percent": 0.2,
-            "batch_size": 256,
-        },
-        "it_uk": {
-            "datatype": "Internet Traffic UK (in Byte)",
-            "dataname": "it_uk_5m",
-            "columns": [0],
-            "lags": 43,
-            "test_percent": 0.2,
-            "batch_size": 256,
-        }
+        # "ram": {
+        #     "datatype": "RAM",
+        #     "dataname": "gg_ram_5m",
+        #     "columns": [1],
+        #     "lags": 18,
+        #     "test_percent": 0.2,
+        #     "batch_size": 128,
+        # },
+        # "it_eu": {
+        #     "datatype": "Internet Traffic EU (in Megabyte)",
+        #     "dataname": "it_eu_5m",
+        #     "columns": [0],
+        #     "lags": 41,
+        #     "test_percent": 0.2,
+        #     "batch_size": 256,
+        # },
+        # "it_uk": {
+        #     "datatype": "Internet Traffic UK (in Byte)",
+        #     "dataname": "it_uk_5m",
+        #     "columns": [0],
+        #     "lags": 43,
+        #     "test_percent": 0.2,
+        #     "batch_size": 256,
+        # }
     }
 
     OPTIMIZERS = [
+        #### MHA-MLP
         # {"name": "GA-MLP", "class": "GaMlp", "param_grid": ga_paras},  # Genetic Algorithm
-        {"name": "JADE-MLP", "class": "JadeMlp", "param_grid": jade_paras},  # Differential Evolution
-        {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        # {"name": "JADE-MLP", "class": "JadeMlp", "param_grid": jade_paras},  # Differential Evolution
+        # {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
         # {"name": "SLO-MLP", "class": "SloMlp", "param_grid": slo_paras},  # Sea Lion Optimization
-        {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+        # {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+
+        #### MHA-ELM
+        {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
+        {"name": "JADE-ELM", "class": "JadeElm", "param_grid": jade_paras},  # Differential Evolution
+        {"name": "CL-PSO-ELM", "class": "CLPsoElm", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        {"name": "SLO-ELM", "class": "SloElm", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "ISLO-ELM", "class": "IsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+
+        {"name": "FPA-ELM", "class": "FpaElm", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "HHO-ELM", "class": "HhoElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "HGS-ELM", "class": "HgsElm", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "NRO-ELM", "class": "NroElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "TLO-ELM", "class": "TloElm", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "FBIO-ELM", "class": "FbioElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "SMA-ELM", "class": "SmaElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
     ]
+
+    # Evo --> FPA
+    # Swarm -> HHO, HGS
+    # Physic-=> NRO,
+    # Human --> TLO, FBIO,
+    # Bio -> SMA
