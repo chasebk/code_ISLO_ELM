@@ -7,7 +7,7 @@
 #       Github:     https://github.com/thieu1995                                                        %
 # ------------------------------------------------------------------------------------------------------%
 
-from mealpy.evolutionary_based import GA, DE
+from mealpy.evolutionary_based import GA, DE, FPA
 from mealpy.swarm_based import ABC, PSO, HHO, GWO, WOA, SpaSA, MFO, ALO, GOA, SalpSO, DO, FA, BeesA, ACOR, NMRA
 from mealpy.swarm_based import FireflyA, BA, FOA, SSO, SSA, EHO, JA, BSA, SHO, SRSR, MSA, BES, PFA, SFO, MRFO, HGS
 from mealpy.bio_based import BBO, IWO, SMA, EOA, SBO, VCS
@@ -98,3 +98,86 @@ class IsloMlp(HybridMlp):
         self.opt = SLO.ISLO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
         self.solution, self.fitness, self.list_loss = self.opt.train()
 
+
+class FpaMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = FPA.BaseFPA(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class HhoMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = HHO.BaseHHO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class HgsMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = HGS.OriginalHGS(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class NroMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = NRO.BaseNRO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class TloMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = TLO.BaseTLO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class FbioMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = FBIO.BaseFBIO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class SmaMlp(HybridMlp):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = SMA.BaseSMA(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
