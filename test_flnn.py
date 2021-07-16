@@ -17,21 +17,29 @@ from utils.io_util import save_to_csv_dict, save_to_csv, save_results_to_csv
 from utils.visual_util import draw_predict
 from utils.timeseries_util import *
 from config import Config, Exp
+from utils import math_util
+from numpy import concatenate
 
 
 # fit an MLP network to training data
-def fit_model(train, batch_size, nb_epoch, neurons, verbose=2):
+def fit_model(train, batch_size, nb_epoch, activation, verbose=2):
     X, y = train[:, 0:-1], train[:, -1]
     model = Sequential()
-    model.add(Dense(neurons, activation='relu', input_dim=X.shape[1]))
-    model.add(Dense(1))
+    model.add(Dense(1, activation=activation, input_dim=X.shape[1]))
     model.compile(loss='mean_squared_error', optimizer='adam')
     loss = model.fit(X, y, epochs=nb_epoch, batch_size=batch_size, verbose=verbose, shuffle=False)
     return model, loss
 
 
+def prepare_expansion(data, expansion_func):
+    y_column = data[:, -1:]
+    X_columns = data[:, 0:-1]
+    X_expansion = getattr(math_util, f"expand_{expansion_func}")(X_columns)
+    return concatenate((X_expansion, y_column), axis=1)
+
+
 # run a repeated experiment
-def experiment(trials, datadict, series, epochs, neurons, verbose):
+def experiment(trials, datadict, series, epochs, activation, expand_func, verbose):
     time_prepare = time()
     lag = datadict["lags"]
     test_size = int(datadict["test_percent"] * len(series.values))
@@ -56,11 +64,13 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
         # fit the model
         time_train = time()
         train_trimmed = train_scaled[2:, :]
-        model, loss = fit_model(train_trimmed, batch_size, epochs, neurons, verbose)
+        train_trimmed = prepare_expansion(train_trimmed, expand_func)
+        model, loss = fit_model(train_trimmed, batch_size, epochs, activation, verbose)
         time_train = time() - time_train
 
         # forecast test dataset
-        test_reshaped = test_scaled[:, 0:-1]
+        test_reshaped = prepare_expansion(test_scaled, expand_func)
+        test_reshaped = test_reshaped[:, 0:-1]
         output = model.predict(test_reshaped, batch_size=batch_size)
         test_pred = list()
         for i in range(len(output)):
@@ -82,7 +92,7 @@ def experiment(trials, datadict, series, epochs, neurons, verbose):
         ## Saving results
         # 1. Create path to save results
         path_general = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{lag}-{datadict['test_percent']}-{trial}"
-        filename = f"MLP-{neurons}-{epochs}-{batch_size}"
+        filename = f"MLP-{lag}-{expand_func}-{epochs}-{batch_size}-{activation}"
 
         # 2. Saving performance of test set
         data = {"true": test_true, "predict": test_pred}
@@ -116,5 +126,7 @@ for dataname, datadict in Exp.LIST_DATASETS.items():
     series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
     # experiment
     results = DataFrame()
-    experiment(Exp.TRIAL, datadict, series, Exp.EPOCH[0], Exp.NN_NET, Exp.VERBOSE)
+    for expand in Exp.EXPANDS:
+        for act in Exp.ACTIVATIONS:
+            experiment(Exp.TRIAL, datadict, series, Exp.EPOCH[0], act, expand, Exp.VERBOSE)
 

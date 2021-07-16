@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results2'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results5'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
@@ -43,10 +43,14 @@ class Exp:
     NN_HYBRID = 2   # For hybrid models
     ACT = "elu"    # Activation function for hybrid models
 
-    VERBOSE = 0
+    EXPANDS = ["chebyshev", "legendre", "laguerre", "power", "trigonometric"]
+    # EXPANDS = ["chebyshev"]
+    ACTIVATIONS = ["elu", "relu", "tanh", "sigmoid"]
+
+    VERBOSE = 2
     TRIAL = 2
 
-    EPOCH = [2000]
+    EPOCH = [1000]
     POP_SIZE = [100]
 
     general_paras = {
@@ -93,7 +97,7 @@ class Exp:
             "datatype": "CPU",
             "dataname": "gg_cpu_5m",
             "columns": [0],
-            "lags": 18,
+            "lags": 36,
             "test_percent": 0.2,
             "batch_size": 128,
         },
