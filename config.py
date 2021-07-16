@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results5'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results6'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
@@ -148,11 +148,11 @@ class Exp:
     ELM_OPTIMIZERS = [
 
         #### MHA-ELM
-        # {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
-        # {"name": "JADE-ELM", "class": "JadeElm", "param_grid": jade_paras},  # Differential Evolution
-        # {"name": "CL-PSO-ELM", "class": "CLPsoElm", "param_grid": clpso_paras},  # Particle Swarm Optimization
-        # {"name": "SLO-ELM", "class": "SloElm", "param_grid": general_paras},  # Sea Lion Optimization
-        # {"name": "ISLO-ELM", "class": "IsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
+        {"name": "JADE-ELM", "class": "JadeElm", "param_grid": jade_paras},  # Differential Evolution
+        {"name": "CL-PSO-ELM", "class": "CLPsoElm", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        {"name": "SLO-ELM", "class": "SloElm", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "ISLO-ELM", "class": "IsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
 
         {"name": "FPA-ELM", "class": "FpaElm", "param_grid": general_paras},  # Sea Lion Optimization
         {"name": "HHO-ELM", "class": "HhoElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
