@@ -49,7 +49,7 @@ class Exp:
 
     FLNN_ACTIVATIONS = ["elu", "tanh"]
 
-    VERBOSE = 0
+    VERBOSE = 2
     TRIAL = 2
 
     EPOCH = [1000]
@@ -129,14 +129,41 @@ class Exp:
         # }
     }
 
+    LIST_DATASETS_FS = {
+        "cpu": {
+            "datatype": "CPU",
+            "dataname": "gg_cpu_5m",
+            "columns": [0],
+            "lags": 36,
+        },
+        # "ram": {
+        #     "datatype": "RAM",
+        #     "dataname": "gg_ram_5m",
+        #     "columns": [1],
+        #     "lags": 18,
+        # },
+        # "it_eu": {
+        #     "datatype": "Internet Traffic EU (in Megabyte)",
+        #     "dataname": "it_eu_5m",
+        #     "columns": [0],
+        #     "lags": 41,
+        # },
+        # "it_uk": {
+        #     "datatype": "Internet Traffic UK (in Byte)",
+        #     "dataname": "it_uk_5m",
+        #     "columns": [0],
+        #     "lags": 43,
+        # }
+    }
+
 
     MLP_OPTIMIZERS = [
         #### MHA-MLP
         # {"name": "GA-MLP", "class": "GaMlp", "param_grid": ga_paras},  # Genetic Algorithm
         # {"name": "JADE-MLP", "class": "JadeMlp", "param_grid": jade_paras},  # Differential Evolution
         # {"name": "CL-PSO-MLP", "class": "CLPsoMlp", "param_grid": clpso_paras},  # Particle Swarm Optimization
-        # {"name": "SLO-MLP", "class": "SloMlp", "param_grid": slo_paras},  # Sea Lion Optimization
-        # {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+        # {"name": "SLO-MLP", "class": "SloMlp", "param_grid": general_paras},  # Sea Lion Optimization
+        # {"name": "ISLO-MLP", "class": "IsloMlp", "param_grid": general_paras},  # Improved Sea Lion Optimization
 
         {"name": "FPA-MLP", "class": "FpaMlp", "param_grid": general_paras},  #
         {"name": "HHO-MLP", "class": "HhoMlp", "param_grid": general_paras},  #
@@ -184,19 +211,19 @@ class Exp:
 
     FLNN_OPTIMIZERS = [
         #### MHA-MLP
-        # {"name": "GA-FLNN", "class": "GaFlnn", "param_grid": ga_paras},  # Genetic Algorithm
-        # {"name": "JADE-FLNN", "class": "JadeFlnn", "param_grid": jade_paras},  # Differential Evolution
-        # {"name": "CL-PSO-FLNN", "class": "CLPsoFlnn", "param_grid": clpso_paras},  # Particle Swarm Optimization
-        # {"name": "SLO-FLNN", "class": "SloFlnn", "param_grid": slo_paras},  # Sea Lion Optimization
-        # {"name": "ISLO-FLNN", "class": "IsloFlnn", "param_grid": islo_paras},  # Improved Sea Lion Optimization
+        {"name": "GA-FLNN", "class": "GaFlnn", "param_grid": ga_paras},  # Genetic Algorithm
+        {"name": "JADE-FLNN", "class": "JadeFlnn", "param_grid": jade_paras},  # Differential Evolution
+        {"name": "CL-PSO-FLNN", "class": "CLPsoFlnn", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        {"name": "SLO-FLNN", "class": "SloFlnn", "param_grid": general_paras},  # Sea Lion Optimization
+        {"name": "ISLO-FLNN", "class": "IsloFlnn", "param_grid": general_paras},  # Improved Sea Lion Optimization
 
         {"name": "FPA-FLNN", "class": "FpaFlnn", "param_grid": general_paras},  #
-        # {"name": "HHO-FLNN", "class": "HhoFlnn", "param_grid": general_paras},  #
-        # {"name": "HGS-FLNN", "class": "HgsFlnn", "param_grid": general_paras},  #
-        # {"name": "NRO-FLNN", "class": "NroFlnn", "param_grid": general_paras},  #
-        # {"name": "TLO-FLNN", "class": "TloFlnn", "param_grid": general_paras},  #
-        # {"name": "FBIO-FLNN", "class": "FbioFlnn", "param_grid": general_paras},  #
-        # {"name": "SMA-FLNN", "class": "SmaFlnn", "param_grid": general_paras},  #
+        {"name": "HHO-FLNN", "class": "HhoFlnn", "param_grid": general_paras},  #
+        {"name": "HGS-FLNN", "class": "HgsFlnn", "param_grid": general_paras},  #
+        {"name": "NRO-FLNN", "class": "NroFlnn", "param_grid": general_paras},  #
+        {"name": "TLO-FLNN", "class": "TloFlnn", "param_grid": general_paras},  #
+        {"name": "FBIO-FLNN", "class": "FbioFlnn", "param_grid": general_paras},  #
+        {"name": "SMA-FLNN", "class": "SmaFlnn", "param_grid": general_paras},  #
     ]
 
     # Evo --> FPA
