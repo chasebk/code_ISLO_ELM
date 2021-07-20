@@ -94,7 +94,7 @@ def objective_function(solution):
     # test_percentage = [0.1, 0.15, 0.2, 0.25, 0.3]
     # n_hidden = [1, 2, 3]
     # n_unit = list(range(5, 50))
-    # batch_size = [64, 128, 256, 512]
+    # batch_size = [32, 64, 128, 256, 512]
     # epoch = [750, 1000, 1250, 1500]
     # activation = ['elu', 'relu', 'sigmoid', 'tanh']
     # optimizer = ['adam', 'rmsprop', 'adadelta', "adagrad", "adamax", "nadam"]
@@ -128,8 +128,8 @@ for dataname, datadict in Exp.LIST_DATASETS_FS.items():
 
     # for trial in Exp.TRIAL:
 
-    max_gen = 2
-    pop_size = 10
+    max_gen = 100
+    pop_size = 50
     FILENAME = f"logging-{max_gen}-{pop_size}"
     PATH_MODEL = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{datadict['lags']}"
 
