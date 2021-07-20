@@ -39,6 +39,7 @@ class Config:
 
 
 class Exp:
+    NN_NET_ELM = 100
     NN_NET = 20     # The number hidden neuron of the network for traditional MLP
     NN_HYBRID = 2   # For hybrid models
     ACT = "elu"    # Activation function for hybrid models
@@ -49,8 +50,8 @@ class Exp:
 
     FLNN_ACTIVATIONS = ["elu", "tanh"]
 
-    VERBOSE = 2
-    TRIAL = 2
+    VERBOSE = 0
+    TRIAL = 10
 
     EPOCH = [1000]
     POP_SIZE = [100]
@@ -103,30 +104,30 @@ class Exp:
             "test_percent": 0.2,
             "batch_size": 128,
         },
-        # "ram": {
-        #     "datatype": "RAM",
-        #     "dataname": "gg_ram_5m",
-        #     "columns": [1],
-        #     "lags": 18,
-        #     "test_percent": 0.2,
-        #     "batch_size": 128,
-        # },
-        # "it_eu": {
-        #     "datatype": "Internet Traffic EU (in Megabyte)",
-        #     "dataname": "it_eu_5m",
-        #     "columns": [0],
-        #     "lags": 41,
-        #     "test_percent": 0.2,
-        #     "batch_size": 256,
-        # },
-        # "it_uk": {
-        #     "datatype": "Internet Traffic UK (in Byte)",
-        #     "dataname": "it_uk_5m",
-        #     "columns": [0],
-        #     "lags": 43,
-        #     "test_percent": 0.2,
-        #     "batch_size": 256,
-        # }
+        "ram": {
+            "datatype": "RAM",
+            "dataname": "gg_ram_5m",
+            "columns": [1],
+            "lags": 36,
+            "test_percent": 0.2,
+            "batch_size": 128,
+        },
+        "it_eu": {
+            "datatype": "Internet Traffic EU (in Megabyte)",
+            "dataname": "it_eu_5m",
+            "columns": [0],
+            "lags": 41,
+            "test_percent": 0.2,
+            "batch_size": 256,
+        },
+        "it_uk": {
+            "datatype": "Internet Traffic UK (in Byte)",
+            "dataname": "it_uk_5m",
+            "columns": [0],
+            "lags": 43,
+            "test_percent": 0.2,
+            "batch_size": 256,
+        }
     }
 
     LIST_DATASETS_FS = {

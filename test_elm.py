@@ -130,5 +130,5 @@ for dataname, datadict in Exp.LIST_DATASETS.items():
     series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
     # experiment
     results = DataFrame()
-    experiment(Exp.TRIAL, datadict, series, Exp.ACT, Exp.NN_NET, Exp.VERBOSE)
+    experiment(Exp.TRIAL, datadict, series, Exp.ACT, Exp.NN_NET_ELM, Exp.VERBOSE)
 

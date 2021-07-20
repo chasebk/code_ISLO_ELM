@@ -89,7 +89,6 @@ def build_testcase(test_percentage, n_hidden, n_unit, batch_size, epoch, activat
     return result_dict
 
 
-
 def objective_function(solution):
     # test_percentage = [0.1, 0.15, 0.2, 0.25, 0.3]
     # n_hidden = [1, 2, 3]
