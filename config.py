@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results6'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results_elm'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
