@@ -124,9 +124,6 @@ for dataname, datadict in Exp.LIST_DATASETS_FS.items():
     # load dataset
     series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
     # experiment
-
-    # for trial in Exp.TRIAL:
-
     max_gen = 100
     pop_size = 50
     FILENAME = f"logging-{max_gen}-{pop_size}"
@@ -134,7 +131,14 @@ for dataname, datadict in Exp.LIST_DATASETS_FS.items():
 
     opt = SMA.BaseSMA(objective_function, LB, UB, Exp.VERBOSE, max_gen, pop_size)
     solution, fitness, list_loss = opt.train()
-    print(solution)
-    print(list_loss)
+
+
+
+
+
+
+
+
+
 
 
