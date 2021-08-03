@@ -7,18 +7,17 @@
 #       Github:     https://github.com/thieu1995                                                        %
 # ------------------------------------------------------------------------------------------------------%
 
+import multiprocessing
 from time import time
-from mealpy.bio_based import SMA
 from pandas import read_csv
 from permetrics.regression import Metrics
 from keras.models import Sequential
 from keras.layers import Dense
-
-from utils.io_util import save_to_csv_dict, save_to_csv, save_results_to_csv
-from utils.visual_util import draw_predict
+from utils.io_util import save_results_to_csv
 from utils.timeseries_util import *
 from config import Config, Exp
 from sklearn.preprocessing import LabelEncoder
+from model.app import mha
 
 
 # fit an MLP network to training data
@@ -36,15 +35,14 @@ def fit_model(train, n_hidden, n_unit, batch_size, nb_epoch, activation, optimiz
 
 
 def build_testcase(test_percentage, n_hidden, n_unit, batch_size, epoch, activation, optimizer):
-    lag = datadict["lags"]
-    test_size = int(test_percentage * len(series.values))
+    test_size = int(test_percentage * len(DATA_SERIES.values))
 
     # transform data to be stationary
-    raw_values = series.values
+    raw_values = DATA_SERIES.values
     diff_values = difference(raw_values, 1)
     # transform data to be supervised learning
-    supervised = timeseries_to_supervised(diff_values, lag)
-    supervised_values = supervised.values[lag:, :]
+    supervised = timeseries_to_supervised(diff_values, LAGS)
+    supervised_values = supervised.values[LAGS:, :]
     # split data into train and test-sets
     train, test = supervised_values[0:-test_size], supervised_values[-test_size:]
     # transform the scale of the data
@@ -74,7 +72,6 @@ def build_testcase(test_percentage, n_hidden, n_unit, batch_size, epoch, activat
 
     ## Saving results
     # 1. Create path to save results
-    path_general = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{lag}"
     filename = f"{test_percentage}-{n_hidden}-{n_unit}-{batch_size}-{epoch}-{activation}-{optimizer}"
 
     # 4. Calculate performance metrics and save it to csv file
@@ -85,7 +82,7 @@ def build_testcase(test_percentage, n_hidden, n_unit, batch_size, epoch, activat
     result_dict = {'filename': filename, 'time_train': time_train}
     for metric_name, value in mm1.items():
         result_dict[metric_name] = value
-    save_results_to_csv(result_dict, f"{FILENAME}", f"{PATH_MODEL}")
+    save_results_to_csv(result_dict, f"{FILE_NAME}", f"{PATH_MODEL}")
     return result_dict
 
 
@@ -118,21 +115,42 @@ ACT_ENCODER = LabelEncoder()
 ACT_ENCODER.fit(['elu', 'relu', 'sigmoid', 'tanh'])
 LB = [1, 1, 5, 6, 3, 1, 1]
 UB = [5.99, 3.99, 50.99, 9.99, 6.99, 3.99, 5.99]
+# LIST_MHAS = ["GA", "SADE", "SAP_DE", "SHADE", "L_SHADE", "WOA", "HI_WOA", "HGS", "COA", "LCBO", "CHIO", "OTWO", "OBL_HGSO", "SLO", "ISLO"]
+LIST_MHAS = ["GA", "SAP_DE",]
+MAX_GEN = 100
+POP_SIZE = 50
 
 
-for dataname, datadict in Exp.LIST_DATASETS_FS.items():
-    # load dataset
-    series = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
-    # experiment
-    max_gen = 100
-    pop_size = 50
-    FILENAME = f"logging-{max_gen}-{pop_size}"
-    PATH_MODEL = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{datadict['lags']}"
+def run_algorithm(name):
+    global LAGS
+    global DATA_SERIES
+    global PATH_MODEL
+    global FILE_NAME
 
-    opt = SMA.BaseSMA(objective_function, LB, UB, Exp.VERBOSE, max_gen, pop_size)
-    solution, fitness, list_loss = opt.train()
+    for dataname, datadict in Exp.LIST_DATASETS_FS.items():
+        # load dataset
+        DATA_SERIES = read_csv(f'{Config.DATA_APP}/{datadict["dataname"]}.csv', usecols=datadict["columns"])
+        # experiment
+        LAGS = datadict["lags"]
+        PATH_MODEL = f"{Config.DATA_RESULTS}/{datadict['dataname']}/{datadict['lags']}"
+        FILE_NAME = f"logging-{name}-{MAX_GEN}-{POP_SIZE}"
+
+        md = getattr(mha, name)(objective_function, LB, UB, Exp.VERBOSE, MAX_GEN, POP_SIZE)
+        solution, best_fit, list_loss = md.train()
 
 
+if __name__ == '__main__':
+    starttime = time()
+    processes = []
+    for algorithm in LIST_MHAS:
+        p = multiprocessing.Process(target=run_algorithm, args=(algorithm,))
+        processes.append(p)
+        p.start()
+
+    for process in processes:
+        process.join()
+
+    print('That took: {} seconds'.format(time() - starttime))
 
 
 
