@@ -29,7 +29,7 @@ class Config:
 
 
     DATA_APP = f'{DATA_DIRECTORY}/app/clean'
-    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results_elm'
+    DATA_RESULTS = f'{DATA_DIRECTORY}/app/results_fs'
     FOL_RES_VISUAL = "visualize"
     FOL_RES_MODEL = "model"
 
@@ -137,24 +137,24 @@ class Exp:
             "columns": [0],
             "lags": 36,
         },
-        # "ram": {
-        #     "datatype": "RAM",
-        #     "dataname": "gg_ram_5m",
-        #     "columns": [1],
-        #     "lags": 18,
-        # },
-        # "it_eu": {
-        #     "datatype": "Internet Traffic EU (in Megabyte)",
-        #     "dataname": "it_eu_5m",
-        #     "columns": [0],
-        #     "lags": 41,
-        # },
-        # "it_uk": {
-        #     "datatype": "Internet Traffic UK (in Byte)",
-        #     "dataname": "it_uk_5m",
-        #     "columns": [0],
-        #     "lags": 43,
-        # }
+        "ram": {
+            "datatype": "RAM",
+            "dataname": "gg_ram_5m",
+            "columns": [1],
+            "lags": 18,
+        },
+        "it_eu": {
+            "datatype": "Internet Traffic EU (in Megabyte)",
+            "dataname": "it_eu_5m",
+            "columns": [0],
+            "lags": 41,
+        },
+        "it_uk": {
+            "datatype": "Internet Traffic UK (in Byte)",
+            "dataname": "it_uk_5m",
+            "columns": [0],
+            "lags": 43,
+        }
     }
 
 
