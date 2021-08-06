@@ -18,6 +18,16 @@ from utils.timeseries_util import *
 from config import Config, Exp
 from numpy import reshape
 
+import os
+import platform
+import tensorflow as tf
+
+tf.config.threading.set_intra_op_parallelism_threads(2)  # matrix multiplication and reductions
+tf.config.threading.set_inter_op_parallelism_threads(2)  # number of threads used by independent non-blocking operations
+
+if platform.system() == "Linux":  # Linux: "Linux", Mac: "Darwin", Windows: "Windows"
+    os.sched_setaffinity(0, {1})
+
 
 def reshape_3d(data):
     return reshape(data, (data.shape[0], data.shape[1], 1))
