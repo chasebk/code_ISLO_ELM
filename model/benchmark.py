@@ -57,6 +57,7 @@ from mealpy.physics_based.HGSO import OppoHGSO as OBL_HGSO
 from model.SLO import BaseSLO as SLO
 from model.SLO import ISLO as ISLO
 from model.COA import BaseCOA as COA
+from model.SLO import ImprovedSLO
 
 
 def f8(solution):
