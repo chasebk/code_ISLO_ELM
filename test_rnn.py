@@ -12,7 +12,7 @@ from time import time
 from pandas import read_csv
 from permetrics.regression import Metrics
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, RNN
+from keras.layers import Dense, LSTM
 from utils.io_util import save_to_csv_dict, save_to_csv, save_results_to_csv
 from utils.visual_util import draw_predict
 from utils.timeseries_util import *
@@ -39,7 +39,7 @@ def fit_model(train, batch_size, nb_epoch, neurons, verbose=2):
     #  The LSTM architecture
     X, y = train[:, 0:-1], train[:, -1]
     model = Sequential()
-    model.add(RNN(neurons, input_shape=(None, 1), activation="relu"))
+    model.add(LSTM(neurons, input_shape=(None, 1), activation="relu"))
     model.add(Dense(units=1, activation="elu"))
     model.compile(loss="mean_squared_error", optimizer="adam")
     loss = model.fit(reshape_3d(X), y, epochs=nb_epoch, batch_size=batch_size, verbose=verbose, shuffle=False)

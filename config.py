@@ -178,20 +178,24 @@ class Exp:
     ELM_OPTIMIZERS = [
 
         #### MHA-ELM
-        {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
-        {"name": "JADE-ELM", "class": "JadeElm", "param_grid": jade_paras},  # Differential Evolution
-        {"name": "CL-PSO-ELM", "class": "CLPsoElm", "param_grid": clpso_paras},  # Particle Swarm Optimization
-        {"name": "SLO-ELM", "class": "SloElm", "param_grid": general_paras},  # Sea Lion Optimization
-        {"name": "ISLO-ELM", "class": "IsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        # {"name": "GA-ELM", "class": "GaElm", "param_grid": ga_paras},  # Genetic Algorithm
+        # {"name": "JADE-ELM", "class": "JadeElm", "param_grid": jade_paras},  # Differential Evolution
+        # {"name": "CL-PSO-ELM", "class": "CLPsoElm", "param_grid": clpso_paras},  # Particle Swarm Optimization
+        # {"name": "SLO-ELM", "class": "SloElm", "param_grid": general_paras},  # Sea Lion Optimization
+        # {"name": "ISLO-ELM", "class": "IsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
+        #
+        # {"name": "FPA-ELM", "class": "FpaElm", "param_grid": general_paras},  #
+        # {"name": "HHO-ELM", "class": "HhoElm", "param_grid": general_paras},  #
+        # {"name": "HGS-ELM", "class": "HgsElm", "param_grid": general_paras},  #
+        # {"name": "NRO-ELM", "class": "NroElm", "param_grid": general_paras},  #
+        # {"name": "TLO-ELM", "class": "TloElm", "param_grid": general_paras},  #
+        # {"name": "FBIO-ELM", "class": "FbioElm", "param_grid": general_paras},  #
+        # {"name": "SMA-ELM", "class": "SmaElm", "param_grid": general_paras},  #
 
-        {"name": "FPA-ELM", "class": "FpaElm", "param_grid": general_paras},  #
-        {"name": "HHO-ELM", "class": "HhoElm", "param_grid": general_paras},  #
-        {"name": "HGS-ELM", "class": "HgsElm", "param_grid": general_paras},  #
-        {"name": "NRO-ELM", "class": "NroElm", "param_grid": general_paras},  #
-        {"name": "TLO-ELM", "class": "TloElm", "param_grid": general_paras},  #
-        {"name": "FBIO-ELM", "class": "FbioElm", "param_grid": general_paras},  #
-        {"name": "SMA-ELM", "class": "SmaElm", "param_grid": general_paras},  #
+        {"name": "ISLO-ELM", "class": "ImprovedsloElm", "param_grid": general_paras},  # Improved Sea Lion Optimization
     ]
+
+
 
     CFNN_OPTIMIZERS = [
         #### MHA-MLP

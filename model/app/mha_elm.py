@@ -17,6 +17,7 @@ from mealpy.math_based import SCA, HC
 from mealpy.system_based import WCA, AEO, GCO
 from mealpy.dummy import BOA
 from mealpy.swarm_based import SLO
+from model.SLO import ImprovedSLO
 from model.app.hybrid_elm import HybridElm
 
 
@@ -96,6 +97,18 @@ class IsloElm(HybridElm):
 
     def fit_model(self):
         self.opt = SLO.ISLO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
+        self.solution, self.fitness, self.list_loss = self.opt.train()
+
+
+class ImprovedsloElm(HybridElm):
+    def __init__(self, mha_paras=None):
+        super().__init__()
+        self.epoch = mha_paras["epoch"]
+        self.pop_size = mha_paras["pop_size"]
+        self.filename = f"{self.epoch}-{self.pop_size}"
+
+    def fit_model(self):
+        self.opt = ImprovedSLO(self.objective_function, self.lb, self.ub, self.verbose, self.epoch, self.pop_size)
         self.solution, self.fitness, self.list_loss = self.opt.train()
 
 
