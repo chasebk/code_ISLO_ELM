@@ -46,12 +46,12 @@ class Exp:
 
     EXPANDS = ["chebyshev", "legendre", "laguerre", "power", "trigonometric"]
     # EXPANDS = ["chebyshev"]
-    ACTIVATIONS = ["elu", "relu", "tanh", "sigmoid"]
+    ACTIVATIONS = ["elu", "tanh"]   #["elu", "relu", "tanh", "sigmoid"]
 
     FLNN_ACTIVATIONS = ["elu", "tanh"]
 
     VERBOSE = 0
-    TRIAL = 10
+    TRIAL = 2
 
     EPOCH = [1000]
     POP_SIZE = [100]
