@@ -21,7 +21,7 @@ def save_fast_to_csv(list_results, list_paths, columns):
 
 PROBLEM_SIZE = 30
 LIST_FUNCTIONS = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20"]
-LIST_MHAS = ["GA", "SAP_DE", "WOA", "COA", "HGS", "LCBO", "CHIO", "SLO", "ISLO"]
+LIST_MHAS = ["GA", "SAP_DE", "WOA", "COA", "HGS", "LCBO", "CHIO", "SLO", "ImprovedSLO"]
 LIST_NAMES = ["GA", "SAP-DE", "HI-WOA", "COA", "HGS", "M-LCO","CHIO", "SLO", "ISLO"]
 
 final_results = []

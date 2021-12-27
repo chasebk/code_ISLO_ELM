@@ -1,3 +1,16 @@
+# Noted
+
+* This project is based on previous project of our group: https://github.com/chasebk/code_OCRO_MLNN
+* The proposed model included:
+   * CFNN network
+   * SLO/ISLO algorithm
+   * SLO/ISLO + CFNN network
+
+* Contributions:
+   * Thang Nguyen (thangbk2209@gmail.com): Provided data
+   * Thieu Nguyen (nguyenthieu2102@gmail.com): Provided old models from previous project
+   * Trung Tran (trungbka1997@gmail.com): Proposed model, Experiments, Graphics
+
 # Efficient Time-series Forecasting using Neural Network and Opposition-based Coral Reefs Optimization
 
 ## Publications
